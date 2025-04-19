@@ -245,7 +245,10 @@ function Header(props: Props) {
       router.push("/dashboard/admin");
     } else if (roles.includes("User")) {
       router.push("/dashboard/user");
-    } else {
+    }else if (roles.includes("SuperAdmin")) {
+      router.push("/dashboard/guide");
+    }
+     else {
       alert("🙈 مفيش داشبورد لهذا المستخدم");
     }
   };

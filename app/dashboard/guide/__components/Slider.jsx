@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { UserIcon, LockClosedIcon } from "@heroicons/react/24/solid";
 import { usePathname } from "next/navigation";
-import { ChevronRightIcon ,ChevronLeftIcon ,BuildingOfficeIcon ,BriefcaseIcon ,TruckIcon ,ArrowRightOnRectangleIcon  } from "@heroicons/react/24/solid";
+import { ChevronRightIcon ,ChevronLeftIcon ,UsersIcon  ,BriefcaseIcon ,TruckIcon ,ArrowRightOnRectangleIcon  } from "@heroicons/react/24/solid";
 import LogOut from "../../../_components/Authentications/logOut";
 
 
@@ -14,11 +14,11 @@ export default function Sidebar() {
   const [profile, setProfile] = useState(null);
 
   const fetchProfile = async () => {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
     // if (!token) return;
 
-    // const token =
-    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlNGIyZjkxZC05ZTEyLTRmNGEtYjNkYi0xYjU4ZmNhMTVlNjYiLCJlbWFpbCI6ImFkbWluQGVneXB0b3MuY29tIiwiZ2l2ZW5fbmFtZSI6IkFkbWluIiwiZmFtaWx5X25hbWUiOiJBZG1pbiIsImp0aSI6IjAxOTU5MGEzLTBjMTAtNzAxMS04YjY4LTliYzFiZjBiZDVjYiIsInJvbGVzIjpbIkFkbWluIl0sImV4cCI6MTc3MzQyNDM1OSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTcwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTcwIn0.bUlzZPE554JixkDZpz4cBmP_lyzDJeJ016tnStcR8zI";
+   
+    const token = JSON.parse(localStorage.getItem('User'))?.tokens;
 
     try {
       const res = await fetch(
@@ -51,11 +51,11 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   const navLinks = [
-    { name: "All User", href: "/dashboard/admin//user", icon: UserIcon },
-    { name: "Profile", href: "/dashboard/admin/account", icon: LockClosedIcon },
-    { name: "hotel", href: "/dashboard/admin//hotel", icon: BuildingOfficeIcon },
-    { name: "guide ", href: "/dashboard/admin//guide", icon: BriefcaseIcon  },
-    { name: "transport ", href: "/dashboard/admin/transport", icon: TruckIcon    },
+  
+    { name: "Profile", href: "/dashboard/guide/account", icon: LockClosedIcon },
+  
+    { name: "customers", href: "/dashboard/guide/customers", icon: UsersIcon  },
+
     
   ];
 

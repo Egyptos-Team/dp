@@ -282,35 +282,35 @@ export default function AddUsTourGuide() {
     <input
       type="number"
       placeholder="Salary Per Hour"
-      className="p-2 border rounded border-white placeholder:text-white text-white"
+      className="p-2 border rounded border-white bg-transparent placeholder:text-white text-white"
       value={newGuide.salaryPerHour}
       onChange={(e) => setNewGuide({ ...newGuide, salaryPerHour: e.target.value })}
     />
     <input
       type="text"
       placeholder="Description"
-      className="p-2 border rounded border-white placeholder:text-white text-white"
+      className="p-2 border rounded border-white bg-transparent placeholder:text-white text-white"
       value={newGuide.description}
       onChange={(e) => setNewGuide({ ...newGuide, description: e.target.value })}
     />
     <input
       type="number"
       placeholder="Years of Experience"
-      className="p-2 border rounded border-white placeholder:text-white text-white"
+      className="p-2 border rounded border-white bg-transparent  placeholder:text-white text-white"
       value={newGuide.yearsOfExperience}
       onChange={(e) => setNewGuide({ ...newGuide, yearsOfExperience: e.target.value })}
     />
     <input
       type="text"
       placeholder="User ID"
-      className="p-2 border rounded border-white placeholder:text-white text-white"
+      className="p-2 border rounded border-white bg-transparent placeholder:text-white text-white"
       value={newGuide.userId}
       onChange={(e) => setNewGuide({ ...newGuide, userId: e.target.value })}
     />
 
     <button
       onClick={handleAddGuide}
-      className="bg-[#FFFFFF] text-[#020032] cursor-pointer hover:bg-[#eeeeeec0] mt-2 py-2 rounded w-[120px] m-auto md:col-span-2"
+      className="bg-[#FFFFFF] text-[#020032] cursor-pointer  hover:bg-[#eeeeeec0] mt-2 py-2 rounded w-[120px] m-auto md:col-span-2"
     >
       Submit
     </button>
@@ -331,9 +331,9 @@ export default function AddUsTourGuide() {
       const updatedList = users.map((g) =>
         g.id === updatedGuide.id ? updatedGuide : g
       );
-      setUsers(updatedList);  // تعديل الـ users بدلاً من guides
-      setFilteredUsers(updatedList);  // تعديل الـ filteredUsers بدلاً من filteredGuides
-      setEditGuide(null);  // إغلاق الفورم بعد التحديث
+      setUsers(updatedList);  
+      setFilteredUsers(updatedList);  
+      setEditGuide(null);  
     }}
   />
 )}
