@@ -1,92 +1,129 @@
-"use client"
-import React, { useState, useEffect } from 'react';
+"use client";
+import { useEffect, useState } from "react";
 
-const Allcustoer = () => {
-  const [bookingData, setBookingData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const apiURL = 'https://egyptos.runasp.net/api/BookingTourGuide/BookedByUser'; // الرابط الصحيح
+export default function BookingTable() {
+  const [bookings, setBookings] = useState([]);
+  const [filteredBookings, setFilteredBookings] = useState([]);
+  const [searchName, setSearchName] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
 
   useEffect(() => {
-    // جلب الـ token من الـ localStorage
-    const storedToken = localStorage.getItem('User') 
-      ? JSON.parse(localStorage.getItem('User')).tokens 
-      : null;
+    const token = JSON.parse(localStorage.getItem('User'))?.tokens;
 
-    if (!storedToken) {
-      setError('لم يتم العثور على الـ token');
-      setLoading(false);
-      return;
+    async function fetchBookings() {
+      const res = await fetch("https://egyptos.runasp.net/api/BookingTourGuide/TourGuideBookedForTourGuide", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+      setBookings(data);
+      setFilteredBookings(data);
     }
 
-    // جلب البيانات من الـ API
-    const fetchBookingData = async () => {
-      try {
-        const response = await fetch(apiURL, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${storedToken}`, // إضافة الـ token في الـ headers
-          },
-        });
+    fetchBookings();
+  }, []);
 
-        if (!response.ok) {
-          throw new Error('فشل في جلب البيانات');
-        }
+  useEffect(() => {
+    let filtered = bookings;
 
-        const data = await response.json();
-        setBookingData(data); // حفظ البيانات في الـ state
-        setLoading(false); // إيقاف التحميل بعد ما البيانات تجيب
-      } catch (error) {
-        setError(error.message); // حفظ الخطأ في الـ state
-        setLoading(false);
-      }
-    };
+    if (searchName) {
+      filtered = filtered.filter(
+        (item) =>
+          item.userFirstName.toLowerCase().includes(searchName.toLowerCase()) ||
+          item.userLastName.toLowerCase().includes(searchName.toLowerCase())
+      );
+    }
 
-    fetchBookingData();
-  }, []); // بيتم تشغيله عند تحميل المكون فقط
+    filtered = [...filtered].sort((a, b) => {
+      const nameA = `${a.userFirstName} ${a.userLastName}`.toLowerCase();
+      const nameB = `${b.userFirstName} ${b.userLastName}`.toLowerCase();
+      return sortOrder === "asc" ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+    });
 
-  if (loading) {
-    return <div className="text-center p-5">جاري تحميل البيانات...</div>;
-  }
-
-  if (error) {
-    return <div className="text-center text-red-500">حدث خطأ: {error}</div>;
-  }
+    setFilteredBookings(filtered);
+  }, [searchName, sortOrder, bookings]);
 
   return (
-    <div className="booking-details container mx-auto p-4">
-      <h2 className="text-2xl font-semibold mb-4 text-center">تفاصيل الحجز</h2>
-      <table className="min-w-full table-auto border-separate border-spacing-0">
-        <thead>
-          <tr className="bg-blue-500 text-white text-sm">
-            <th className="py-2 px-4 text-center">معرف الحجز</th>
-            <th className="py-2 px-4 text-center">معرف المرشد السياحي</th>
-            <th className="py-2 px-4 text-center">اسم المرشد السياحي</th>
-            <th className="py-2 px-4 text-center">معرف المستخدم</th>
-            <th className="py-2 px-4 text-center">إجمالي السعر</th>
-            <th className="py-2 px-4 text-center">تاريخ الدفع</th>
-            <th className="py-2 px-4 text-center">تاريخ البداية</th>
-            <th className="py-2 px-4 text-center">تاريخ النهاية</th>
-          </tr>
-        </thead>
-        <tbody>
-          {bookingData.map((booking) => (
-            <tr key={booking.id} className="hover:bg-gray-100">
-              <td className="py-2 px-4 text-center border-t">{booking.id}</td>
-              <td className="py-2 px-4 text-center border-t">{booking.tourGuideId}</td>
-              <td className="py-2 px-4 text-center border-t">{booking.tourGuideFirstName || 'غير متوفر'} {booking.tourGuideLastName || 'غير متوفر'}</td>
-              <td className="py-2 px-4 text-center border-t">{booking.userId}</td>
-              <td className="py-2 px-4 text-center border-t">{booking.totalPrice}</td>
-              <td className="py-2 px-4 text-center border-t">{booking.paymentDate ? booking.paymentDate : 'لم يتم الدفع بعد'}</td>
-              <td className="py-2 px-4 text-center border-t">{booking.startBooking}</td>
-              <td className="py-2 px-4 text-center border-t">{booking.endBooking}</td>
+    <div className="p-6 flex flex-col space-y-6 bg-[#40434878] mt-6 rounded-2xl w-full">
+      <div className="flex w-full">
+        <h1 className="text-2xl text-white font-bold">Booking Data</h1>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <input
+          type="text"
+          className="border bg-transparent text-white placeholder:text-white border-gray-300 p-2 rounded"
+          placeholder="Search by user name"
+          value={searchName}
+          onChange={(e) => setSearchName(e.target.value)}
+        />
+        <select
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value)}
+          className="border bg-transparent text-white border-gray-300 p-2 rounded"
+        >
+          <option value="asc">Sort A-Z</option>
+          <option value="desc">Sort Z-A</option>
+        </select>
+      </div>
+
+      <div className="overflow-x-auto p-6 pl-0 max-h-[600px] text-[13px] overflow-y-auto scrollbar-thin scrollbar-thumb-rounded custom-scroll scrollbar-thumb-gray-500 scrollbar-track-gray-800">
+        <table className="border-collapse border border-[#FFFFFF] shadow-sm w-full">
+          <thead className="text-[#FFFFFF]">
+            <tr>
+              <th className="border border-gray-300 py-5">ID</th>
+              <th className="border border-gray-300">Tour Guide</th>
+              <th className="border border-gray-300">User</th>
+              <th className="border border-gray-300">User ID</th>
+              <th className="border border-gray-300">Total Price</th>
+              <th className="border border-gray-300">Payment Date</th>
+              <th className="border border-gray-300">Payment Cancel</th>
+              <th className="border border-gray-300">Cancel Booking</th>
+              <th className="border border-gray-300">Start Booking</th>
+              <th className="border border-gray-300">End Booking</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredBookings.length > 0 ? (
+              filteredBookings.map((item) => (
+                <tr key={item.id} className="border-b text-[#FFFFFF]">
+                  <td className="border p-2 text-center border-gray-300">{item.id}</td>
+                  <td className="border p-2 text-center border-gray-300">
+                    {item.tourGuideFirstName} {item.tourGuideLastName}
+                  </td>
+                  <td className="border p-2 text-center border-gray-300">
+                    {item.userFirstName} {item.userLastName}
+                  </td>
+                  <td className="border p-2 text-center border-gray-300">{item.userId}</td>
+                  <td className="border p-2 text-center border-gray-300">{item.totalPrice}</td>
+                  <td className="border p-2 text-center border-gray-300">
+                    {item.paymentDate ? new Date(item.paymentDate).toLocaleString() : "N/A"}
+                  </td>
+                  <td className="border p-2 text-center border-gray-300">
+                    {item.paymentCancel ? new Date(item.paymentCancel).toLocaleString() : "N/A"}
+                  </td>
+                  <td className="border p-2 text-center border-gray-300">
+                    {item.cancelBooking ? new Date(item.cancelBooking).toLocaleString() : "N/A"}
+                  </td>
+                  <td className="border p-2 text-center border-gray-300">
+                    {new Date(item.startBooking).toLocaleString()}
+                  </td>
+                  <td className="border p-2 text-center border-gray-300">
+                    {new Date(item.endBooking).toLocaleString()}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={10} className="text-center text-gray-400 py-4">
+                  No bookings found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
-};
-
-export default Allcustoer;
+}
