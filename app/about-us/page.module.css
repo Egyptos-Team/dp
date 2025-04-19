@@ -1,0 +1,41 @@
+@media(min-width: 1024px) and (max-width: 1277px){
+    .pragraph{
+        line-height: 1.5;
+    }.reverseText{
+        line-height: 1.3;
+    }
+}
+@media(min-width: 350px) and (max-width:640px){
+    .about{
+        font-size: 35px;
+    }
+    .padding{
+        padding-right: 20px;
+        padding-left: 20px;
+    }.reverseImg{
+        display: grid;
+        order: 1;
+    }.reverseText{
+        display: grid;
+        order: 2;
+    }.store{
+        font-size: 25px;
+        padding-top: 15px;
+    }.storePara{
+        font-size: 20px;
+        padding-top: 10px;
+        padding-bottom: 20px;
+    }
+    .para{
+        right: 20%;
+    }.text{
+        font-size: 30px;
+        margin-left: 10px;
+    }.btn{
+        font-size: 25px;
+    }
+}
+.bgGradient {
+    background: linear-gradient(267.77deg, #020032 1.87%, #060099 45.21%, #020032 93.12%);
+    opacity: 0.9;
+  }

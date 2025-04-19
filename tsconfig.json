@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "types": ["next-auth"],
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/_components/Authentications/createacount.jsx", "app/lib/nextauth.tsx", "app/_components/Authentications/SignInPage.jsx", "app/profile/page.jsx", "app/_components/Authentications/Clinetcomponent.jsx", "next.config.js", "app/_components/ContactUs.jsx"],
+  "exclude": ["node_modules"]
+}

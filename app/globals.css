@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Poppins:wght@300;400;500;600;700;800;900&family=Aboreto&family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&family=Ravi+Prakash&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+:root {
+  --font-cairo: "Cairo", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+  --font-aboreto: "Aboreto", cursive;
+  --font-inknut: "Inknut Antiqua", serif;
+  --font-ravi: "Ravi Prakash", sans-serif;
+  
+  
+  --white: #FFFFFF;
+  --light-gray: #E6E6E6;
+  --dark-blue: #020032;
+  --golden: #FFD700;
+  --midnight-blue: #191970;
+  --deep-mahogany: #8B0000;
+  --color-white-transparent: rgba(255, 255, 255, 0.5);
+  --deep-purple: #4B0082;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+html {
+  scroll-behavior: smooth;
+  
+}
+body {
+  color: var(--foreground);
+  background: var(--background);
+  overflow-x: hidden;
+
+}
+  
+.input-style {
+  @apply w-full h-[50px]  rounded-[8px] focus:outline-none autofill:bg-transparent mt-3
+         placeholder-[#FFFFFF] leading-7 text-[20px] bg-transparent border border-[#FFFFFF];
+}
+
+
+.bg-lightGray {
+  background-color: var(--light-gray);
+}
+
+.bg-darkBlue {
+  background-color: var(--dark-blue);
+}
+
+.bg-golden {
+  background-color: var(--golden);
+}
+
+.bg-midnightBlue {
+  background-color: var(--midnight-blue);
+}
+
+.bg-deepMahogany {
+  background-color: var(--deep-mahogany);
+}
+
+.bg-colorButtonTransparent {
+  background-color: var(--color-white-transparent);
+}
+
+.bg-deepPurple {
+  background-color: var(--deep-purple);
+}
+
+/* إخفاء الأسهم */
+.custom-scroll::-webkit-scrollbar-button {
+  display: none;
+}
+@layer utilities {
+  /* إخفاء شريط التمرير (لكن التمرير يظل يعمل) */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* إخفاء الشريط العمودي */
+  .no-scrollbar::-webkit-scrollbar:vertical {
+    display: none;
+  }
+
+  /* إخفاء الشريط الأفقي */
+  .no-scrollbar::-webkit-scrollbar:horizontal {
+    display: none;
+  }
+}

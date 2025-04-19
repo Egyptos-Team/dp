@@ -1,0 +1,16 @@
+Material Design  > Material UI
+Material Icons > Mui icon material
+Material Icons > React Icons
+Authentication > next-auth 
+مكتبة validator >validator
+
+لتحسين الصور تلقائيًا > next/image 
+
+جلب البيانات (Fetching Data)> TanStack Query (React Query) ||Not installed
+جلب البيانات (Fetching Data)> Axios||Not installed
+مكتبة للأنيميشن > Framer Motion  ||Not installed
+مكتبات إدارة البيانات > Zustand ||Not installed
+ لإدارة الـ SEO داخل Next.js >   next-seo ||Not installed 
+لإضافة Meta Tags وتحسين الـ SEO >   React Helmet  ||Not installed 
+مكتبة لإنشاء الرسوم البيانية  > Recharts  ||Not installed 
+مكتبة لإنشاء الجداول >  React Table ||Not installed 
