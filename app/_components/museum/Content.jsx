@@ -75,7 +75,7 @@ export default function Content() {
         />
       </motion.div>
 
-      {loading && <p>⏳ جاري التحميل...</p>}
+      {loading && <p>⏳ Loading...</p>}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
         {products

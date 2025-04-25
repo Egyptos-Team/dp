@@ -1,65 +1,58 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import ProfileImage from '../__components/profile/ProfileImage';
-import PersonalInfo from '../__components/profile/PersonalInfo';
-import AccountSecurity from '../__components/profile/AccountSecurity';
+
+import React, { useState, useEffect } from "react";
+import ProfileImage from "../__components/profile/ProfileImage";
+import PersonalInfo from "../__components/profile/PersonalInfo";
+import AccountSecurity from "../__components/profile/AccountSecurity";
+import useToken from "../__components/useToken";
+
 export default function Page() {
-  const [profileData, setProfileData] = useState(null);  
-  const [loading, setLoading] = useState(true); 
-  const [error, setError] = useState(null);  
+  const [profileData, setProfileData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const token = useToken();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlNGIyZjkxZC05ZTEyLTRmNGEtYjNkYi0xYjU4ZmNhMTVlNjYiLCJlbWFpbCI6ImFkbWluQGVneXB0b3MuY29tIiwiZ2l2ZW5fbmFtZSI6IkFkbWluIiwiZmFtaWx5X25hbWUiOiJBZG1pbiIsImp0aSI6IjAxOTU5MGEzLTBjMTAtNzAxMS04YjY4LTliYzFiZjBiZDVjYiIsInJvbGVzIjpbIkFkbWluIl0sImV4cCI6MTc3MzQyNDM1OSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTcwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTcwIn0.bUlzZPE554JixkDZpz4cBmP_lyzDJeJ016tnStcR8zI'; 
-
-        const response = await fetch('https://egyptos.runasp.net/api/Account/Profile', {
-          method: 'GET',
+        const response = await fetch("https://egyptos.runasp.net/api/Account/Profile", {
+          method: "GET",
           headers: {
-            'Authorization': `Bearer ${token}`, 
-            'Content-Type': 'application/json', 
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         });
 
-        if (!response.ok) {  
-          throw new Error("Failed to fetch data");
+        if (!response.ok) {
+          throw new Error("Failed to fetch profile data");
         }
 
         const result = await response.json();
-        setProfileData(result);  
+        setProfileData(result);
       } catch (error) {
-        setError(error.message);  
+        setError(error.message);
       } finally {
-        setLoading(false);  
+        setLoading(false);
       }
     };
 
-    fetchData();  
-  }, []);  
+    if (token) {
+      fetchData();
+    }
+  }, [token]);
 
-  if (loading) {
-    return <div>Loading...</div>;  
-  }
+  if (loading) return <div className="text-white p-6">Loading profile...</div>;
 
-  if (error) {
-    return <div>Error: {error}</div>;  
-  }
+  if (error) return <div className="text-red-400 p-6">Error: {error}</div>;
 
   return (
-    <div className='w-full bg-black py-6   px-6'>
-      <h1 className=' text-white text-[20px] font-extrabold '>Account Setting</h1>
-      <div>
-        <div>
-          <div className=' bg-[#40434878] rounded-md '>
-            <ProfileImage  imageUrl={`https://egyptos.runasp.net/${profileData?.imageUrl}`} />
-            <PersonalInfo fetchEndpoint={`https://egyptos.runasp.net/api/Account/Profile`} />
-          </div>
-         
-          <div>
-            <AccountSecurity/>
-          </div>
-        </div>
+    <div className="w-full bg-black py-6 px-6">
+      <h1 className="text-white text-[22px] font-extrabold mb-6">Account Settings</h1>
+
+      <div className="bg-[#40434878] rounded-md p-4 space-y-8">
+        <ProfileImage imageUrl={`https://egyptos.runasp.net/${profileData?.imageUrl}`} />
+        <PersonalInfo fetchEndpoint="https://egyptos.runasp.net/api/Account/Profile" />
+        <AccountSecurity />
       </div>
     </div>
   );

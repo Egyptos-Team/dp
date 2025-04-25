@@ -15,7 +15,7 @@ export default function SignInPage() {
   const router = useRouter();
 
   // localStorage.setItem("User", JSON.stringify(response));
-  window.dispatchEvent(new Event("userLoggedIn")); // 👈 هنستخدمه في الهيدر
+  window.dispatchEvent(new Event("userLoggedIn")); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,53 +36,51 @@ export default function SignInPage() {
       let data;
       try {
         data = await response.json();
-        console.log(data)
       } catch {
-        setError("❌ فشل في معالجة الاستجابة من السيرفر!");
+        setError("❌ Server replacement failed!");
         return;
       }
 
       if (response.ok && data.token) {
-        // حفظ التوكن في الكوكيز
         Cookies.set("auth-token",data.token, {
           expires: 30, 
           path: "/",
           secure: process.env.NODE_ENV === "production",
         });
 
-        // حفظ البيانات المطلوبة فقط في localStorage
+
         if (typeof window !== "undefined") {
           const userData = {
             tokens:data.token,
             firstName: data.firstName,
             lastName:data.lastName,
             email: data.email,
-            avatar: data.avatar || "/default-avatar.png", // تجنب القيم الفارغة
-          };
+            avatar: data.avatar || "/default-avatar.png", 
+          }
           localStorage.setItem("User", JSON.stringify(userData));
         }
-
-        // تسجيل الدخول عبر NextAuth
         const res = await signIn("credentials", {
           redirect: false,
           email: formData.email,
           password: formData.password,
         });
         
-             console.log("📩 Full Response:", response);
+     
         if (res?.error) {
-          setError("❌ خطأ في تسجيل الدخول، تأكد من البيانات!");
+          setError("❌ Login error, check data!");
           return;
         }
 
-        setSuccessMessage("✅ تسجيل الدخول ناجح! سيتم تحويلك...");
+        setSuccessMessage("✅ Login successful! You will be redirected...");
+        window.location.reload();
+
         router.push("/profile");
 
       } else {
-        setError(data.message || "❌ فشل التسجيل، راجع البيانات!");
+        setError(data.message || "❌ Registration failed, check data!");
       }
     } catch (error) {
-      setError("❌ حصل خطأ أثناء تسجيل الدخول");
+      setError("❌ An error occurred while logging in.");
       console.error("🚨 Login error:", error);
     }
   };

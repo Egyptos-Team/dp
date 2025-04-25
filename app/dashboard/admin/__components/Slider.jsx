@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { UserIcon, LockClosedIcon } from "@heroicons/react/24/solid";
 import { usePathname } from "next/navigation";
-import { ChevronRightIcon ,ChevronLeftIcon ,BuildingOfficeIcon ,BriefcaseIcon ,TruckIcon ,ArrowRightOnRectangleIcon  } from "@heroicons/react/24/solid";
+import { ChevronRightIcon ,ChevronLeftIcon ,BuildingOfficeIcon ,BriefcaseIcon ,TruckIcon ,GlobeAltIcon,ClockIcon ,ArrowRightOnRectangleIcon    } from "@heroicons/react/24/solid";
 import LogOut from "../../../_components/Authentications/logOut";
 
 
@@ -14,7 +14,7 @@ export default function Sidebar() {
   const [profile, setProfile] = useState(null);
 
   const fetchProfile = async () => {
-    const token = localStorage.getItem("token");
+    const token = JSON.parse(localStorage.getItem("User"))?.tokens;
     // if (!token) return;
 
     // const token =
@@ -56,6 +56,8 @@ export default function Sidebar() {
     { name: "hotel", href: "/dashboard/admin//hotel", icon: BuildingOfficeIcon },
     { name: "guide ", href: "/dashboard/admin//guide", icon: BriefcaseIcon  },
     { name: "transport ", href: "/dashboard/admin/transport", icon: TruckIcon    },
+    { name: "area ", href: "/dashboard/admin/area", icon: GlobeAltIcon    },
+    { name: "event ", href: "/dashboard/admin/events", icon: ClockIcon     },
     
   ];
 
@@ -133,7 +135,12 @@ export default function Sidebar() {
                 </li>
               );
             })}
-            <li>
+            <li className={`duration-300 p-2  py-3 rounded-xl flex items-center
+                hover:bg-[#FFFFFF1C] hover:text-[#2a2185]  hover:rounded-xl`} > 
+                <div className=" flex items-center justify-center w-8 h-8">
+                  <ArrowRightOnRectangleIcon className="w-6 h-6 text-red-500" />
+                     
+                    </div>
               <LogOut/>
             </li>
           </ul>

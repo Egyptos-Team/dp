@@ -1,0 +1,23 @@
+@media(min-width: 300) and (max-width: 900){
+    .textMd{
+        font-size: 22px;
+        padding-bottom: 15px;
+    }
+    .textXl{
+      font-size: 30px;
+      text-align: center;
+      margin: auto;
+      line-height: normal;
+    }.textXl>span{
+        padding-left: 10px;
+    }.textSm{
+        font-size: 13px;
+    }
+    .md{
+        font-size: 22px;
+    }.xl{
+        font-size: 26px;
+    }.xxl{
+        font-size: 60px;
+    }
+}

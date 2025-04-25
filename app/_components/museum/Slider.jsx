@@ -14,7 +14,7 @@ export default function Slider() {
       try {
         const res = await fetch("https://egyptos.runasp.net/api/AreaTypes/Get/8");
         const data = await res.json();
-        setImages(data.areas); // ← هنا التعديل
+        setImages(data.areas); 
         console.log("data", data);
       } catch (error) {
         console.error("Error fetching images:", error);

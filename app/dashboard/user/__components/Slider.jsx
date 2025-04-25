@@ -3,11 +3,17 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { UserIcon, LockClosedIcon } from "@heroicons/react/24/solid";
+import { UserIcon, LockClosedIcon, ArrowRightEndOnRectangleIcon ,UsersIcon } from "@heroicons/react/24/solid";
 import { usePathname } from "next/navigation";
-import { ChevronRightIcon ,ChevronLeftIcon ,BuildingOfficeIcon ,BriefcaseIcon ,TruckIcon ,ArrowRightOnRectangleIcon  } from "@heroicons/react/24/solid";
+import {
+  ChevronRightIcon,
+  ChevronLeftIcon,
+  BuildingOfficeIcon,
+  BriefcaseIcon,
+  TruckIcon,
+  ArrowRightOnRectangleIcon,
+} from "@heroicons/react/24/solid";
 import LogOut from "../../../_components/Authentications/logOut";
-
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
@@ -16,7 +22,7 @@ export default function Sidebar() {
   const fetchProfile = async () => {
     // const token = localStorage.getItem("token");
     // if (!token) return;
-    const token = JSON.parse(localStorage.getItem('User'))?.tokens;
+    const token = JSON.parse(localStorage.getItem("User"))?.tokens;
     // const token =
     //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlNGIyZjkxZC05ZTEyLTRmNGEtYjNkYi0xYjU4ZmNhMTVlNjYiLCJlbWFpbCI6ImFkbWluQGVneXB0b3MuY29tIiwiZ2l2ZW5fbmFtZSI6IkFkbWluIiwiZmFtaWx5X25hbWUiOiJBZG1pbiIsImp0aSI6IjAxOTU5MGEzLTBjMTAtNzAxMS04YjY4LTliYzFiZjBiZDVjYiIsInJvbGVzIjpbIkFkbWluIl0sImV4cCI6MTc3MzQyNDM1OSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTcwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTcwIn0.bUlzZPE554JixkDZpz4cBmP_lyzDJeJ016tnStcR8zI";
 
@@ -51,12 +57,13 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   const navLinks = [
-    { name: "All User", href: "/dashboard/admin//user", icon: UserIcon },
-    { name: "Profile", href: "/dashboard/admin/account", icon: LockClosedIcon },
-    { name: "hotel", href: "/dashboard/admin//hotel", icon: BuildingOfficeIcon },
-    { name: "guide ", href: "/dashboard/admin//guide", icon: BriefcaseIcon  },
-    { name: "transport ", href: "/dashboard/admin/transport", icon: TruckIcon    },
-    
+    { name: "Profile", href: "/dashboard/user/account", icon: LockClosedIcon },
+    { name: "customers", href: "/dashboard/guide/customers", icon: UsersIcon  },
+    {
+      name: "All Bookings",
+      href: "/dashboard/user//booking",
+      icon: BuildingOfficeIcon,
+    },
   ];
 
   return (
@@ -70,14 +77,21 @@ export default function Sidebar() {
           onClick={toggleSidebar}
           className="text-3xl cursor-pointer text-end relative right-[-35px] pr-4  text-[#2a2185]"
         >
-          <div className="absolute right-3  top-1 bg-[#2684FF] p-1 rounded-full"> {isOpen ?<ChevronLeftIcon className="w-6 h-6 font-extrabold text-white" />:<ChevronRightIcon className="w-6 h-6 font-extrabold text-white" />} </div>
+          <div className="absolute right-3  top-1 bg-[#2684FF] p-1 rounded-full">
+            {" "}
+            {isOpen ? (
+              <ChevronLeftIcon className="w-6 h-6 font-extrabold text-white" />
+            ) : (
+              <ChevronRightIcon className="w-6 h-6 font-extrabold text-white" />
+            )}{" "}
+          </div>
         </div>
 
         <div className="overflow-hidden   items-center pl-3 pb-3 border-b-1">
           {profile && (
             <div className="flex items-center">
               <Image
-                src={`https://egyptos.runasp.net/${profile.imageUrl}`} 
+                src={`https://egyptos.runasp.net/${profile.imageUrl}`}
                 alt="User"
                 width={50}
                 height={50}
@@ -92,9 +106,11 @@ export default function Sidebar() {
                 >
                   {profile.firstName} {profile.lastName}
                 </h1>
-                <p className={`text-[11px] pl-2 text-[#FFFFFF75] ${
+                <p
+                  className={`text-[11px] pl-2 text-[#FFFFFF75] ${
                     isOpen ? "block" : "hidden "
-                  } `}>
+                  } `}
+                >
                   {profile.email}
                 </p>
               </div>
@@ -126,16 +142,43 @@ export default function Sidebar() {
                         }`}
                       />
                     </div>
-                    <span className={` text-[#FFFFFF] ${isOpen ? "block" : "hidden"}`}>
+                    <span
+                      className={` text-[#FFFFFF] ${
+                        isOpen ? "block" : "hidden"
+                      }`}
+                    >
                       {link.name}
                     </span>
                   </Link>
                 </li>
               );
             })}
-            <li>
-              <LogOut/>
+            <li className="bg-red-600 text-white p-2  py-3 rounded-xl flex items-center  gap-2  font-bold">
+              <button
+                onClick={() => {
+                  localStorage.removeItem("User");
+                
+                  document.cookie.split(";").forEach((cookie) => {
+                    const name = cookie.split("=")[0].trim();
+                    document.cookie =
+                      name + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;";
+                  });
+                  signOut({
+                    callbackUrl: "/auth/signin",
+                  });
+                }}
+                className="flex items-center  gap-2"
+              >
+                <ArrowRightEndOnRectangleIcon className="flex items-center justify-center w-7 h-7" />
+
+                <span
+                  className={` text-[#FFFFFF] ${isOpen ? "block" : "hidden"}`}
+                >
+                  logout
+                </span>
+              </button>
             </li>
+            
           </ul>
         </div>
       </div>

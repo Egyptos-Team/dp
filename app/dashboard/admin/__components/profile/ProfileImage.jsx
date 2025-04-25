@@ -30,14 +30,14 @@ const ProfileImage = () => {
 
         if (response.ok) {
           const data = await response.json();
-          console.log("Received image data:", data); // اضف هذه السطر للتحقق من البيانات التي تم جلبها
-          setImageUrl(data.imageUrl); // افترض إن الـ API بترجع imageUrl
+          
+          setImageUrl(data.imageUrl); 
         } else {
-          setErrorMessage("❌ فشل في جلب الصورة");
+          setErrorMessage("❌ Failed to fetch image");
         }
       } catch (error) {
-        setErrorMessage("❌ حدث خطأ أثناء جلب الصورة");
-        console.error("حدث خطأ أثناء جلب الصورة:", error);
+        setErrorMessage("❌ An error occurred while fetching the image");
+        console.error("An error occurred while fetching the image:", error);
       }
     };
 
@@ -48,11 +48,11 @@ const ProfileImage = () => {
     const file = event.target.files[0];
     if (file) {
       if (!file.type.startsWith("image/")) {
-        setErrorMessage("الرجاء اختيار صورة فقط");
+        setErrorMessage("Please select only an image.");
         return;
       }
       if (file.size > 5 * 1024 * 1024) {
-        setErrorMessage("حجم الصورة كبير جدًا. يرجى اختيار صورة أقل من 5MB");
+        setErrorMessage("Image size is too large. Please choose an image less than 5MB.");
         return;
       }
       setNewImage(file);
@@ -64,7 +64,7 @@ const ProfileImage = () => {
     e.preventDefault();
 
     if (!newImage) {
-      setErrorMessage("يرجى اختيار صورة أولًا");
+      setErrorMessage("Please choose a photo first");
       return;
     }
 
@@ -86,11 +86,10 @@ const ProfileImage = () => {
       if (response.ok) {
         const result = await response.text();
         window.location.reload();
-        console.log("تم رفع الصورة بنجاح:", result);
-        setSuccessMessage("✅ تم تغيير الصورة بنجاح");
+        console.log("Image uploaded successfully:", result);
+        setSuccessMessage("✅ Image changed successfully");
         setErrorMessage(null);
 
-        // استخدام الصورة الجديدة من الـ FormData
         setImageUrl(URL.createObjectURL(newImage));
         setNewImage(null);
 
@@ -99,13 +98,13 @@ const ProfileImage = () => {
         }, 2000);
       } else {
         const errorText = await response.text();
-        console.error("فشل في رفع الصورة:", errorText);
-        setErrorMessage("❌ فشل في رفع الصورة");
+        console.error("Failed to upload image:", errorText);
+        setErrorMessage("❌ Failed to upload image");
         setSuccessMessage(null);
       }
     } catch (error) {
-      console.error("حدث خطأ أثناء رفع الصورة:", error);
-      setErrorMessage("❌ حدث خطأ أثناء رفع الصورة");
+      console.error("An error occurred while uploading the image:", error);
+      setErrorMessage("❌ An error occurred while uploading the image.");
       setSuccessMessage(null);
     }
   };
@@ -165,8 +164,7 @@ const ProfileImage = () => {
             className="bg-[#eeeeeeaa] p-6 rounded-lg shadow-lg max-w-sm w-full"
           >
             <h3 className="text-2xl font-semibold mb-4 text-center">
-              تغيير صورة البروفايل
-            </h3>
+            Change profile picture            </h3>
 
             <input
               type="file"

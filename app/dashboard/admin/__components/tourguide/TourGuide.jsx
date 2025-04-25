@@ -14,7 +14,6 @@ export default function AddUsTourGuide() {
   const [searchName, setSearchName] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
   const [showAddForm, setShowAddForm] = useState(false);
-  const [imageFile, setImageFile] = useState(null);
   const [editGuide, setEditGuide] = useState(null);
 
   const [newGuide, setNewGuide] = useState({
@@ -26,10 +25,8 @@ export default function AddUsTourGuide() {
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlNGIyZjkxZC05ZTEyLTRmNGEtYjNkYi0xYjU4ZmNhMTVlNjYiLCJlbWFpbCI6ImFkbWluQGVneXB0b3MuY29tIiwiZ2l2ZW5fbmFtZSI6IkFkbWluIiwiZmFtaWx5X25hbWUiOiJBZG1pbiIsImp0aSI6IjAxOTU5MGEzLTBjMTAtNzAxMS04YjY4LTliYzFiZjBiZDVjYiIsInJvbGVzIjpbIkFkbWluIl0sImV4cCI6MTc3MzQyNDM1OSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MTcwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MTcwIn0.bUlzZPE554JixkDZpz4cBmP_lyzDJeJ016tnStcR8zI";
+  const token = JSON.parse(localStorage.getItem('User'))?.tokens;
 
-  // دالة لجب الداتا من الـ API
   const fetchUsers = async () => {
     const res = await fetch("https://egyptos.runasp.net/api/TourGuide/GetAll", {
       headers: {
@@ -79,7 +76,7 @@ export default function AddUsTourGuide() {
       );
 
       if (res.ok) {
-        fetchUsers(); // بعد الحذف، جلب البيانات من جديد
+        fetchUsers(); 
       } else {
         const errorData = await res.json();
         console.error("Failed to delete user from API:", errorData);
@@ -113,7 +110,7 @@ export default function AddUsTourGuide() {
 
       if (res.ok) {
         const added = await res.json();
-        fetchUsers(); // بعد الإضافة، جلب البيانات من جديد
+        fetchUsers(); 
         setShowAddForm(false);
         setNewGuide({
           salaryPerHour: "",

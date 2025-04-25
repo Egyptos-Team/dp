@@ -5,7 +5,9 @@ export default async function EditPage({ params }) {
   );
   const item = await res.json();
 
-
-
-  return <EditTransportForm item={item} />;
+  return (
+    <div className="w-full bg-black">
+      <EditTransportForm item={item} />
+    </div>
+  );
 }

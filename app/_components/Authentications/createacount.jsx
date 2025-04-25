@@ -59,7 +59,7 @@ export default function CreateAccount() {
       if (error) {
         newErrors[name] = error;
       } else {
-        delete newErrors[name]; // حذف الخطأ من الحالة
+        delete newErrors[name]; 
       }
       return newErrors;
     });
@@ -158,7 +158,7 @@ export default function CreateAccount() {
                 <div className="grid grid-cols-1 gap-4">
                     <div className="w-full ">
                       <div className="flex flex-col md:flex-row justify-between gap-4">
-                             {/*  الاسم الأول */}
+                            
                         <div className="w-full md:w-1/2">
                               <input
                                 type="text"
@@ -172,7 +172,7 @@ export default function CreateAccount() {
                               
                         </div>
                       
-                        {/* اسم العائلة */}
+                        
                         <div className="w-full md:w-1/2">
                               <input
                                 type="text"
@@ -189,13 +189,13 @@ export default function CreateAccount() {
                          {/* {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>} */}
                     </div>
           
-                    {/* البريد الإلكتروني */}
+                  
                     <div>
                             <input type="email" name="email" placeholder="E-mail  " autoComplete="off" onChange={handleChange} value={formData.email} className=" pl-6 input-style  " />
                             {errors.email && <p className="text-red-500 autofill:!bg-transparent focus:bg-transparent text-sm">{errors.email}</p>}
                     </div>
                     
-                    {/*  اختيار الجنس  0*/}
+                    
                     <div className="flex items-center justify-between p-3 px-6 bg-transparent border mt-3  rounded-lg">
                         <h2>Gender</h2>
                         <label className="flex items-center gap-2">
@@ -222,7 +222,7 @@ export default function CreateAccount() {
                         </label>
                     </div>
           
-                    {/*  الرقم القومي */}
+                  
                     <div>
                           <input type="tel" name="nationalId" placeholder=" National ID  " onChange={handleChange} value={formData.nationalId} className=" pl-6 input-style" />
                           {errors.nationalId && <p className="text-red-500 text-sm">{errors.nationalId}</p>}
@@ -289,7 +289,7 @@ export default function CreateAccount() {
                               {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
                         </div>
                     </div>
-                    {/*  رقم الهاتف */}
+                    
                     <div className="relative">
                           <div className="absolute left-[1px] rounded-[8px] w-[50px] top-[37px] transform -translate-y-1/2 h-[48px] bg-[#020032] flex items-center justify-center">
                                 <PhoneIcon  className="text-[#FFFFFF] w-5 h-5" />

@@ -7,7 +7,7 @@ export default function AllBooking() {
   const [searchName, setSearchName] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
 
-  const token = "your_token_here"; // بدل التوكن هنا علشان الأمان
+  const token = JSON.parse(localStorage.getItem('User'))?.tokens;
 
   useEffect(() => {
     async function fetchBookings() {
@@ -40,7 +40,7 @@ export default function AllBooking() {
     fetchBookings();
   }, []);
 
-  // فلترة وترتيب البيانات
+  
   const filteredBookings = bookings
     .filter((b) =>
       `${b.tourGuideFirstName} ${b.tourGuideLastName}`

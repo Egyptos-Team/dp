@@ -18,7 +18,7 @@ const ProfileClient = () => {
 
             user = {
                 name: `${session.user.firstName || ""} ${session.user.lastName || ""}`.trim(),
-                email: session.user.email || "غير معروف",
+                email: session.user.email || "unknown",
             };
         } else if (typeof window !== "undefined") {
             const storedUser = localStorage.getItem("User");
@@ -30,7 +30,7 @@ const ProfileClient = () => {
 
                 user = {
                     name: `${parsedUser.firstName || ""} ${parsedUser.lastName || ""}`.trim(),
-                    email: parsedUser.email || "غير معروف",
+                    email: parsedUser.email || "unknown",
                 };
             }
         }
@@ -41,7 +41,7 @@ const ProfileClient = () => {
         }
     }, [session, status]);
 
-    if (status === "loading") return <p>جاري تحميل البيانات...</p>;
+    if (status === "loading") return <p>Loading data...</p>;
 
     return (
         <div>

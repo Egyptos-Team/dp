@@ -4,7 +4,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 const SearchAndSortBar = ({ searchName, setSearchName, sortOrder, setSortOrder, users, setFilteredUsers }) => {
   useEffect(() => {
-    if (users && users.length > 0) {  // التأكد من وجود البيانات
+    if (users && users.length > 0) { 
       const filteredData = users
         .filter((user) => user.name.toLowerCase().includes(searchName.toLowerCase()))
         .sort((a, b) => {

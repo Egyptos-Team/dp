@@ -17,9 +17,10 @@ export default function AddTransportPage() {
 
     const formData = new FormData();
     formData.append("Name", name);
-    formData.append("ImageUrl", imageFile); // 👈 هنا اسم الحقل في API backend
+    formData.append("ImageUrl", imageFile);
     const savedToken = JSON.parse(localStorage.getItem("User") || "{}");
     const token = savedToken.tokens;
+
     const res = await fetch(
       "https://egyptos.runasp.net/api/TransportTypes/Create",
       {
@@ -39,13 +40,12 @@ export default function AddTransportPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow rounded">
-      <h2 className="text-2xl font-bold mb-4 text-center">
-        Add Transport Type
-      </h2>
+    <div className="w-full bg-black">
+    <div className="mt-10 mx-auto p-6 bg-[#8894A22E] rounded-xl w-full max-w-xl text-white">
+      <h2 className="text-2xl font-bold mb-6 text-center">Add Transport Type</h2>
       <form
         onSubmit={handleSubmit}
-        className="space-y-4"
+        className="space-y-5"
         encType="multipart/form-data"
       >
         <input
@@ -53,32 +53,32 @@ export default function AddTransportPage() {
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full p-2 border rounded"
+          className="w-full p-3 rounded bg-white text-black placeholder:text-gray-500"
           required
         />
         <input
           type="file"
           accept="image/*"
           onChange={(e) => setImageFile(e.target.files[0])}
-          className="w-full p-2 border rounded"
+          className="w-full p-3 rounded bg-white text-black"
           required
         />
-        <div className="flex justify-end space-x-2">
+        <div className="flex justify-end space-x-3">
           <button
             type="button"
-            onClick={() => router.push("/transport")}
-            className="bg-gray-300 px-4 py-2 rounded"
+            onClick={() => router.push("/dashboard/admin/transport")}
+            className="bg-[#C2C2C2] hover:bg-[#b0b0b0] text-black px-4 py-2 rounded"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+            className="bg-[#FFFFFF] text-[#020032] hover:bg-[#eeeeeec0] px-4 py-2 rounded"
           >
             Add
           </button>
         </div>
       </form>
-    </div>
+    </div></div>
   );
 }

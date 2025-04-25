@@ -34,12 +34,12 @@ export default function PutGuide({ guide, onClose, onGuideUpdated }) {
   console.log("response", formData);
       console.log("response", response);
   
-      // التحقق من حالة الاستجابة
+     
       if (response.ok) {
-        const textResponse = await response.text();  // الحصول على النص بدل JSON
-        console.log("Response text: ", textResponse);  // طباعة النص للاستفادة منه
+        const textResponse = await response.text();  
+        console.log("Response text: ", textResponse); 
         if (textResponse) {
-          const updatedGuide = JSON.parse(textResponse);  // تحويل النص إلى JSON يدويًا
+          const updatedGuide = JSON.parse(textResponse); 
           onGuideUpdated(updatedGuide);
           onClose();
         } else {
@@ -47,7 +47,7 @@ export default function PutGuide({ guide, onClose, onGuideUpdated }) {
         }
       } else {
         const error = await response.json();
-        setErrorMessage(error?.message || "حدث خطأ أثناء التحديث");
+        setErrorMessage(error?.message ||"An error occurred during the update.");
       }
     } catch (error) {
       console.error(error);

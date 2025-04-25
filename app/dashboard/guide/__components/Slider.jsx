@@ -5,9 +5,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { UserIcon, LockClosedIcon } from "@heroicons/react/24/solid";
 import { usePathname } from "next/navigation";
-import { ChevronRightIcon ,ChevronLeftIcon ,UsersIcon  ,BriefcaseIcon ,TruckIcon ,ArrowRightOnRectangleIcon  } from "@heroicons/react/24/solid";
+import {
+  ChevronRightIcon,
+  ChevronLeftIcon,
+  UsersIcon,
+  TicketIcon,
+  TruckIcon,
+  ArrowRightOnRectangleIcon,
+} from "@heroicons/react/24/solid";
 import LogOut from "../../../_components/Authentications/logOut";
-
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
@@ -17,8 +23,7 @@ export default function Sidebar() {
     // const token = localStorage.getItem("token");
     // if (!token) return;
 
-   
-    const token = JSON.parse(localStorage.getItem('User'))?.tokens;
+    const token = JSON.parse(localStorage.getItem("User"))?.tokens;
 
     try {
       const res = await fetch(
@@ -51,12 +56,14 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   const navLinks = [
-  
     { name: "Profile", href: "/dashboard/guide/account", icon: LockClosedIcon },
-  
-    { name: "customers", href: "/dashboard/guide/customers", icon: UsersIcon  },
 
-    
+    { name: "customers", href: "/dashboard/guide/customers", icon: UsersIcon },
+    {
+      name: "All Bookings",
+      href: "/dashboard/guide/booking",
+      icon: TicketIcon,
+    },
   ];
 
   return (
@@ -70,14 +77,21 @@ export default function Sidebar() {
           onClick={toggleSidebar}
           className="text-3xl cursor-pointer text-end relative right-[-35px] pr-4  text-[#2a2185]"
         >
-          <div className="absolute right-3  top-1 bg-[#2684FF] p-1 rounded-full"> {isOpen ?<ChevronLeftIcon className="w-6 h-6 font-extrabold text-white" />:<ChevronRightIcon className="w-6 h-6 font-extrabold text-white" />} </div>
+          <div className="absolute right-3  top-1 bg-[#2684FF] p-1 rounded-full">
+            {" "}
+            {isOpen ? (
+              <ChevronLeftIcon className="w-6 h-6 font-extrabold text-white" />
+            ) : (
+              <ChevronRightIcon className="w-6 h-6 font-extrabold text-white" />
+            )}{" "}
+          </div>
         </div>
 
         <div className="overflow-hidden   items-center pl-3 pb-3 border-b-1">
           {profile && (
             <div className="flex items-center">
               <Image
-                src={`https://egyptos.runasp.net/${profile.imageUrl}`} 
+                src={`https://egyptos.runasp.net/${profile.imageUrl}`}
                 alt="User"
                 width={50}
                 height={50}
@@ -92,9 +106,11 @@ export default function Sidebar() {
                 >
                   {profile.firstName} {profile.lastName}
                 </h1>
-                <p className={`text-[11px] pl-2 text-[#FFFFFF75] ${
+                <p
+                  className={`text-[11px] pl-2 text-[#FFFFFF75] ${
                     isOpen ? "block" : "hidden "
-                  } `}>
+                  } `}
+                >
                   {profile.email}
                 </p>
               </div>
@@ -126,15 +142,25 @@ export default function Sidebar() {
                         }`}
                       />
                     </div>
-                    <span className={` text-[#FFFFFF] ${isOpen ? "block" : "hidden"}`}>
+                    <span
+                      className={` text-[#FFFFFF] ${
+                        isOpen ? "block" : "hidden"
+                      }`}
+                    >
                       {link.name}
                     </span>
                   </Link>
                 </li>
               );
             })}
-            <li>
-              <LogOut/>
+            <li
+              className={`duration-300 p-2  py-3 rounded-xl flex items-center
+                           hover:bg-[#FFFFFF1C] hover:text-[#2a2185]  hover:rounded-xl`}
+            >
+              <div className=" flex items-center justify-center w-8 h-8">
+                <ArrowRightOnRectangleIcon className="w-6 h-6 text-red-500" />
+              </div>
+              <LogOut />
             </li>
           </ul>
         </div>

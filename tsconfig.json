@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/_components/Authentications/createacount.jsx", "app/lib/nextauth.tsx", "app/_components/Authentications/SignInPage.jsx", "app/profile/page.jsx", "app/_components/Authentications/Clinetcomponent.jsx", "next.config.js", "app/_components/ContactUs.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/_components/Authentications/createacount.jsx", "app/lib/nextauth.tsx", "app/_components/Authentications/SignInPage.jsx", "app/profile/page.jsx", "app/_components/Authentications/Clinetcomponent.jsx", "next.config.js", "app/_components/ContactUs.jsx", "app/dashboard/user/__components/bookins/GetAll.tsx"],
   "exclude": ["node_modules"]
 }

@@ -67,7 +67,7 @@ const HotelTable = ({ filteredUsers, handleDelete, setEditHotel }) => {
                     Delete
                   </button>
                   <button
-                    onClick={() => setEditHotel(user)} // هنا الصح
+                    onClick={() => setEditHotel(user)} 
                     className="bg-[#4D93EF] text-white px-4 py-2 rounded hover:bg-[#3a7dcc]"
                   >
                     Update

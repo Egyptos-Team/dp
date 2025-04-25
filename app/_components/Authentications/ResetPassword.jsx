@@ -25,7 +25,7 @@ export default function ResetPasswordPage() {
           "Accept": "application/json"  
         },
         body: JSON.stringify({
-          email: email.trim()  // تأكد إن الإيميل بدون مسافات زائدة
+          email: email.trim()  
         }),
       });
       

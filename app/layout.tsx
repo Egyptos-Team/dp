@@ -5,6 +5,7 @@ import "./globals.css";
 import Nextauthprovider from "./provider/nextauthprovider";
 import Header from "./_components/Header";
 import Footer from "./_components/Footer";
+import Booticon from "./_components/Booticon";
 
 const cairo = Cairo({
   subsets: ["arabic"],
@@ -69,6 +70,7 @@ export default function RootLayout({
         <Nextauthprovider>
           <Header />
           <main className="flex-grow flex flex-col">{children}</main>
+          <Booticon/>
           <Footer />
         </Nextauthprovider>
       </body>

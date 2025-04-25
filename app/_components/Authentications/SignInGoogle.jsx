@@ -6,7 +6,7 @@
     export default function SignInGoogle() {
       const { data: session } = useSession();
 
-      // إرسال بيانات المستخدم للـAPI بعد تسجيل الدخول
+
       useEffect(() => {
         if (session) {
           const sendUserData = async () => {
@@ -17,7 +17,7 @@
             };
 
             try {
-              const response = await fetch('', {// الايرور اللي بيظهر هنا علشان مفيشAPI
+              const response = await fetch('', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',

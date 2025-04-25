@@ -12,7 +12,7 @@ const ClientComponent = () => {
             try {
                 setLoading(true);
                 
-                // ✅ جلب بيانات المستخدم من LocalStorage
+                
                 const storedUser = localStorage.getItem("User");
                 if (!storedUser) {
                     throw new Error("There is no user data stored in LocalStorage");
@@ -25,7 +25,6 @@ const ClientComponent = () => {
                     throw new Error("There is no authentication token, please log in again.");
                 }
 
-                // ✅ استدعاء API لجلب بيانات المستخدم
                 const response = await fetch("https://egyptos.runasp.net/api/Account/Profile", {
                     method: "GET",
                     headers: {
@@ -34,7 +33,7 @@ const ClientComponent = () => {
                     }
                 });
 
-                // ✅ التحقق من حالة الاستجابة
+             
                 const text = await response.text();
                 console.log("🔍 API Response:", text);
 

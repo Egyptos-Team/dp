@@ -82,8 +82,8 @@ export default function AddUser() {
       );
 
       if (res.ok) {
-        setUsers((prev) => prev.filter((user) => user.id !== id)); // حذف الـ user بناءً على الـ id
-        setFilteredUsers((prev) => prev.filter((user) => user.id !== id)); // نفس الشيء مع الـ filteredUsers
+        setUsers((prev) => prev.filter((user) => user.id !== id)); 
+        setFilteredUsers((prev) => prev.filter((user) => user.id !== id));
       } else {
         const errorData = await res.json();
         console.error("Failed to delete user from API:", errorData);
@@ -260,7 +260,7 @@ export default function AddUser() {
                       Delete
                     </button>
                     <button
-                      onClick={() => setEditHotel(user)} // هنا الصح
+                      onClick={() => setEditHotel(user)} 
                       className="bg-[#4D93EF] text-white px-3 cursor-pointer items-center my-2 hover:bg-[#4d93efcf] flex mx-1 text-[13px] py-2 rounded"
                     >
                       <PencilSquareIcon className="h-4 w-4 text-white inline-block mr-1" />
