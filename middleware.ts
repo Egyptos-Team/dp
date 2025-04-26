@@ -60,7 +60,7 @@ export default withAuth(
     console.log("🔹 Current Path:", pathname);
     console.log("🔹 User Authenticated:", isAuth ? "✅ Yes" : "❌ No");
 
-    const ProtectedRoute = ["/profile", "/dashboard"];
+    const ProtectedRoute = ["/", "/dashboard"];
     const isAuthRoute = pathname.startsWith("/auth/signin");
     const isProtectedRoute = ProtectedRoute.some((route) => pathname.startsWith(route));
 
@@ -71,7 +71,7 @@ export default withAuth(
 
     if (isAuthRoute && isAuth) {
       console.log("🔄 Redirecting to /profile...");
-      return NextResponse.redirect(new URL("/profile", request.url));
+      return NextResponse.redirect(new URL("/", request.url));
     }
   },
   {

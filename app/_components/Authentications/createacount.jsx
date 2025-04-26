@@ -241,7 +241,7 @@ export default function CreateAccount() {
                                       : "🏳";
                                     return (
                                       <option className="group-[.group]:bg-[#020032] group-[.group]:text[#FFFFFF]" key={country} value={countryCode}>
-                                        {flagEmoji} {country}
+                                        {country}
                                       </option>
                                     );
                                   })}

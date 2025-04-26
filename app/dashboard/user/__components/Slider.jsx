@@ -14,6 +14,7 @@ import {
   ArrowRightOnRectangleIcon,
 } from "@heroicons/react/24/solid";
 import LogOut from "../../../_components/Authentications/logOut";
+import { signOut } from "next-auth/react";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);

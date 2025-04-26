@@ -74,7 +74,7 @@ export default function SignInPage() {
         setSuccessMessage("✅ Login successful! You will be redirected...");
         window.location.reload();
 
-        router.push("/profile");
+        router.push("/");
 
       } else {
         setError(data.message || "❌ Registration failed, check data!");

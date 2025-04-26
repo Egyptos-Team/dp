@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { UserIcon, LockClosedIcon } from "@heroicons/react/24/solid";
 import { usePathname } from "next/navigation";
-import { ChevronRightIcon ,ChevronLeftIcon ,BuildingOfficeIcon ,BriefcaseIcon ,TruckIcon ,GlobeAltIcon,ClockIcon ,ArrowRightOnRectangleIcon    } from "@heroicons/react/24/solid";
+import { ChevronRightIcon ,ChevronLeftIcon ,BuildingOfficeIcon ,BriefcaseIcon ,TruckIcon ,GlobeAltIcon,ClockIcon ,ArrowRightEndOnRectangleIcon    } from "@heroicons/react/24/solid";
 import LogOut from "../../../_components/Authentications/logOut";
 
 
@@ -135,13 +135,30 @@ export default function Sidebar() {
                 </li>
               );
             })}
-            <li className={`duration-300 p-2  py-3 rounded-xl flex items-center
-                hover:bg-[#FFFFFF1C] hover:text-[#2a2185]  hover:rounded-xl`} > 
-                <div className=" flex items-center justify-center w-8 h-8">
-                  <ArrowRightOnRectangleIcon className="w-6 h-6 text-red-500" />
-                     
-                    </div>
-              <LogOut/>
+           <li className="bg-red-600 text-white p-2  py-3 rounded-xl flex items-center  gap-2  font-bold">
+              <button
+                onClick={() => {
+                  localStorage.removeItem("User");
+                
+                  document.cookie.split(";").forEach((cookie) => {
+                    const name = cookie.split("=")[0].trim();
+                    document.cookie =
+                      name + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;";
+                  });
+                  signOut({
+                    callbackUrl: "/auth/signin",
+                  });
+                }}
+                className="flex items-center  gap-2"
+              >
+                <ArrowRightEndOnRectangleIcon className="flex items-center justify-center w-7 h-7" />
+
+                <span
+                  className={` text-[#FFFFFF] ${isOpen ? "block" : "hidden"}`}
+                >
+                  logout
+                </span>
+              </button>
             </li>
           </ul>
         </div>
